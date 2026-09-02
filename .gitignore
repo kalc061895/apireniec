@@ -1,0 +1,12 @@
+# Archivos de configuración con contraseñas y datos sensibles
+.env
+.env.local
+
+# Archivos del sistema operativo e IDEs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs
+*.log

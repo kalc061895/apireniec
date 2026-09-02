@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Consulta RENIEC - Red de Salud San Román</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 520px;
+            width: 100%;
+            border-top: 6px solid #0056b3;
+        }
+
+        h1 {
+            color: #0056b3;
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+            text-align: center;
+        }
+
+        p.sub {
+            color: #666;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            background: #0056b3;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #004085;
+        }
+
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            display: none;
+        }
+
+        .profile {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .img-foto {
+            width: 90px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background: #eee;
+        }
+        .img-firma {
+            width: 120px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background: #eee;
+        }
+
+        .info {
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #444;
+        }
+
+        .info strong {
+            color: #111;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>API RENIEC</h1>
+        <p class="sub">Red de Salud</p>
+
+        <div class="search-box">
+            <input type="text" id="dniInput" maxlength="8" placeholder="Ingrese DNI a consultar">
+            <button onclick="buscarDNI()">Consultar</button>
+        </div>
+
+        <div class="result" id="resultBox">
+            <div class="profile">
+                <img id="fotoImg" class="img-foto" src="" alt="Foto DNI">
+                <div class="info">
+                    <p><strong id="nombreCompleto">-</strong></p>
+                    <p><strong>DNI:</strong> <span id="resDni"></span></p>
+                    <p><strong>F. Nacimiento:</strong> <span id="resNac"></span></p>
+                    <p><strong>Domicilio:</strong> <span id="resDir"></span></p>
+                    <p><strong>Ubigeo:</strong> <span id="resUbigeo"></span></p>
+                </div>
+                <img id="firmaImg" class="img-firma" src="" alt="Firma DNI">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function buscarDNI() {
+            const dni = document.getElementById('dniInput').value.trim();
+            const resultBox = document.getElementById('resultBox');
+
+            if (dni.length !== 8) {
+                alert('Ingrese un DNI válido de 8 dígitos.');
+                return;
+            }
+
+            try {
+                const res = await fetch(`api.php?dni=${dni}`);
+                const json = await res.json();
+
+                if (json.status) {
+                    const data = json.data;
+                    document.getElementById('nombreCompleto').innerText = data.nombre_completo;
+                    document.getElementById('resDni').innerText = data.dni;
+                    document.getElementById('resNac').innerText = data.fecha_nacimiento;
+                    document.getElementById('resDir').innerText = data.domicilio.completo || 'SIN DATOS';
+                    document.getElementById('resUbigeo').innerText = `${data.ubigeo_domicilio.departamento} - ${data.ubigeo_domicilio.provincia} - ${data.ubigeo_domicilio.distrito}`;
+
+                    if (data.foto_base64) {
+                        document.getElementById('fotoImg').src = data.foto_base64;
+                    }
+                    if (data.firma_base64) {
+                        document.getElementById('firmaImg').src = data.firma_base64;
+                    }
+                    resultBox.style.display = 'block';
+                } else {
+                    alert(json.message);
+                    resultBox.style.display = 'none';
+                }
+            } catch (e) {
+                alert('Ocurrió un error al consultar la API.');
+            }
+        }
+    </script>
+</body>
+
+</html>

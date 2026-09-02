@@ -1,0 +1,7 @@
+{
+    "name": "quillasoftware/apireniec",
+    "description": "API REST en PHP para consulta de DNI con servicio SOAP de RENIEC MINSA",
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
+}

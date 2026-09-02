@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  apireniec:
+    build: .
+    container_name: apireniec
+    ports:
+      - "80:80"
+    env_file:
+      - .env
+    restart: unless-stopped

@@ -88,9 +88,17 @@
             align-items: flex-start;
         }
 
-        .profile img {
+        .img-foto {
             width: 90px;
             height: 110px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background: #eee;
+        }
+        .img-firma {
+            width: 120px;
+            height: 90px;
             object-fit: cover;
             border-radius: 4px;
             border: 1px solid #ccc;
@@ -112,7 +120,7 @@
 <body>
     <div class="card">
         <h1>API RENIEC</h1>
-        <p class="sub">Red de Salud San Román</p>
+        <p class="sub">Red de Salud</p>
 
         <div class="search-box">
             <input type="text" id="dniInput" maxlength="8" placeholder="Ingrese DNI a consultar">
@@ -121,7 +129,7 @@
 
         <div class="result" id="resultBox">
             <div class="profile">
-                <img id="fotoImg" src="" alt="Foto DNI">
+                <img id="fotoImg" class="img-foto" src="" alt="Foto DNI">
                 <div class="info">
                     <p><strong id="nombreCompleto">-</strong></p>
                     <p><strong>DNI:</strong> <span id="resDni"></span></p>
@@ -129,7 +137,7 @@
                     <p><strong>Domicilio:</strong> <span id="resDir"></span></p>
                     <p><strong>Ubigeo:</strong> <span id="resUbigeo"></span></p>
                 </div>
-                <img id="firmaImg" src="" alt="Firma DNI">
+                <img id="firmaImg" class="img-firma" src="" alt="Firma DNI">
             </div>
         </div>
     </div>

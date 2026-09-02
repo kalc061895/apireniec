@@ -7,4 +7,4 @@ API en PHP para consulta de datos de ciudadanos peruano mediante el servicio Web
 1. Clonar el repositorio:
    ```bash
    git clone [https://github.com/kalc061895/apireniec](https://github.com/kalc061895/apireniec)
-   cd api-reniec
+   cd apireniec

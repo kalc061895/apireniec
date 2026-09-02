@@ -129,6 +129,7 @@
                     <p><strong>Domicilio:</strong> <span id="resDir"></span></p>
                     <p><strong>Ubigeo:</strong> <span id="resUbigeo"></span></p>
                 </div>
+                <img id="firmaImg" src="" alt="Firma DNI">
             </div>
         </div>
     </div>
@@ -144,7 +145,7 @@
             }
 
             try {
-                const res = await fetch(`/api/reniec?dni=${dni}`);
+                const res = await fetch(`api.php?dni=${dni}`);
                 const json = await res.json();
 
                 if (json.status) {
@@ -157,6 +158,9 @@
 
                     if (data.foto_base64) {
                         document.getElementById('fotoImg').src = data.foto_base64;
+                    }
+                    if (data.firma_base64) {
+                        document.getElementById('firmaImg').src = data.firma_base64;
                     }
                     resultBox.style.display = 'block';
                 } else {

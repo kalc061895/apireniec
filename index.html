@@ -136,6 +136,8 @@
                     <p><strong>F. Nacimiento:</strong> <span id="resNac"></span></p>
                     <p><strong>Domicilio:</strong> <span id="resDir"></span></p>
                     <p><strong>Ubigeo:</strong> <span id="resUbigeo"></span></p>
+                    <p><strong>CodV:</strong> <span id="resCodV"></span></p>
+                    <p><strong>Emision:</strong> <span id="resEmision"></span></p>
                 </div>
                 <img id="firmaImg" class="img-firma" src="" alt="Firma DNI">
             </div>
@@ -163,6 +165,8 @@
                     document.getElementById('resNac').innerText = data.fecha_nacimiento;
                     document.getElementById('resDir').innerText = data.domicilio.completo || 'SIN DATOS';
                     document.getElementById('resUbigeo').innerText = `${data.ubigeo_domicilio.departamento} - ${data.ubigeo_domicilio.provincia} - ${data.ubigeo_domicilio.distrito}`;
+                    document.getElementById('resCodV').innerText = data.digito_verificacion;
+                    document.getElementById('resEmision').innerText = data.fecha_emision;
 
                     if (data.foto_base64) {
                         document.getElementById('fotoImg').src = data.foto_base64;

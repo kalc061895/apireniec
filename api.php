@@ -120,8 +120,10 @@ if (($arr[0] ?? '') !== '0000') {
 // 5. Mapeo estructurado
 $ciudadano = [
     'dni' => $arr[2] ?? '',
+    'digito_verificacion' => $arr[3] ?? '',
     'paterno' => $arr[4] ?? '',
     'materno' => $arr[5] ?? '',
+    'casada' => $arr[6] ?? '',
     'nombres' => $arr[7] ?? '',
     'nombre_completo' => trim(($arr[7] ?? '') . ' ' . ($arr[4] ?? '') . ' ' . ($arr[5] ?? '')),
     'fecha_nacimiento' => $arr[29] ?? '',
@@ -143,6 +145,8 @@ $ciudadano = [
     ],
     'padre' => $arr[30] ?? '',
     'madre' => $arr[31] ?? '',
+    'fecha_inscripcion' => $arr[32] ?? '',
+    'fecha_emision' => $arr[33] ?? '',
     'foto_base64' => (!empty($arr[47]) && strlen($arr[47]) > 100) ? 'data:image/jpeg;base64,' . $arr[47] : null,
     'firma_base64' => (!empty($arr[48]) && strlen($arr[48]) > 100) ? 'data:image/jpeg;base64,' . $arr[48] : null
 ];
